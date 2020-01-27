@@ -76,7 +76,8 @@ void vendor_check_variant()
 {
     struct sysinfo sys;
     char const *region_file = "/mnt/vendor/persist/flag/countrycode.txt";
-    char const *build_fingerprint, *product_device, *product_name;
+    char const *product_device, *product_model, *product_name, *build_fingerprint;
+
     std::string region;
 
     sysinfo(&sys);
@@ -95,12 +96,10 @@ void vendor_check_variant()
     if (sys.totalram > 4096ull * 1024 * 1024) {
         // Russian model
         if (region == "RU") {
-            build_fingerprint = "asus/RU_Phone/ASUS_X00QD:9/PPR1.180610.009/16.0615.1912.115-0:user/release-keys";
             product_device = "ASUS_X00QD";
 
         // Global model
         } else {
-            build_fingerprint = "asus/WW_Phone/ASUS_X00QD:9/PPR1.180610.009/16.0615.1912.115-0:user/release-keys";
             product_device = "ASUS_X00QD";
         }
 
@@ -108,18 +107,29 @@ void vendor_check_variant()
     } else {
         // Russian model
         if (region == "RU") {
-            build_fingerprint = "asus/RU_Phone/ASUS_X00QD:9/PPR1.180610.009/16.0615.1912.115-0:user/release-keys";
             product_device = "ASUS_X00QD";
 
         // Global model
         } else {
-            build_fingerprint = "asus/WW_Phone/ASUS_X00QD:9/PPR1.180610.009/16.0615.1912.115-0:user/release-keys";
             product_device = "ASUS_X00QD";
         }
     }
 
+    // Product model overrides
+    if (region == "RU" || region == "TW" ||
+        (region == "PH" && sys.totalram > 3072ull * 1024 * 1024))
+        product_model = "ASUS_X00QD";
+    else if (sys.totalram < 3072ull * 1024 * 1024)
+        product_model = "ASUS_X00QD";
+    else
+        product_model = "ASUS_X00QD";
+
+    //Google walley Fingerptint
+    build_fingerprint = "google/walleye/walleye:8.1.0/OPM1.171019.011/4448085:user/release-keys";
+
     // Override props based on values set
     property_override_dual("ro.product.device", "ro.vendor.product.device", product_device);
+    property_override_dual("ro.product.model", "ro.vendor.product.model", product_model);
     property_override_dual("ro.product.name", "ro.vendor.product.name", product_name);
     property_override_triple("ro.build.fingerprint", "ro.vendor.build.fingerprint", "ro.bootimage.build.fingerprint", build_fingerprint);
 
