@@ -249,7 +249,25 @@ on boot
 
     # Create vpp directory
     mkdir /mnt/vendor/persist/vpp 0770 media media
-
+    
+    #ASUS_BSP +++ ShowCai "Proximity/Light sensor"
+    chown system shell /sys/class/sensors/psensor/switch
+    chown system shell /sys/class/sensors/lsensor/switch
+    chown system shell /sys/class/sensors/frgbsensor/switch
+    chown system shell /sys/class/sensors/psensor/inf_cal
+    chown system shell /sys/class/sensors/psensor/hi_cal
+    chown system shell /sys/class/sensors/psensor/low_cal
+    chown system shell /sys/class/sensors/psensor/proxm
+    chown system shell /sys/class/sensors/psensor/selection
+    chown system shell /sys/class/sensors/lsensor/selection
+    chown system shell /sys/class/sensors/lsensor/cal
+    chown system shell /sys/class/sensors/lsensor/adc
+    #ASUS_BSP +++ ShowCai "Proximity/Light sensor"
+    
+    #ASUS_BSP +++ EasonChang "fix sensors error"
+    chown system system /mnt/vendor/persist/sensors/sns.reg
+    chown system system /mnt/vendor/persist/sensors/sns_p.reg
+    #ASUS_BSP --- EasonChang "fix sensors error"
 
     # Create hvdcp_opti directory
     mkdir /mnt/vendor/persist/hvdcp_opti 0770 root system
@@ -1212,3 +1230,9 @@ service vendor.audio-hal-2-0 /vendor/bin/hw/android.hardware.audio@2.0-service
     oneshot
     interface android.hardware.audio@4.0::IDevicesFactory default
     interface android.hardware.audio@2.0::IDevicesFactory default
+
+# ASUS_BSP+++ Show_Cai "For power key turn on screen and enable touch"
+on property:sys.asus.psensor.enable_touch=1
+	write /sys/class/sensors/psensor/enable_touch 1
+	setprop sys.asus.psensor.enable_touch 0
+# ASUS_BSP--- Show_Cai "For power key turn on screen and enable touch"
