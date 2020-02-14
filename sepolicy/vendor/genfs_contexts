@@ -1,3 +1,13 @@
+# canera
+genfscon proc /driver/camera_temp                                       u:object_r:proc_camera:s0
+genfscon proc /driver/FrontModule                                       u:object_r:proc_camera:s0
+genfscon proc /driver/RearModule                                        u:object_r:proc_camera:s0
+genfscon proc /driver/front_otp                                         u:object_r:proc_camera:s0
+genfscon proc /driver/rear_otp                                          u:object_r:proc_camera:s0
+genfscon proc /driver/LaserFocus_Status_For_Camera                      u:object_r:proc_camera:s0
+genfscon proc /driver/ois_device                                        u:object_r:proc_camera:s0
+genfscon proc /driver/ois_status                                        u:object_r:proc_camera:s0
+
 genfscon debugfs /wlan0/power_stats    u:object_r:debugfs_power_stats:s0
 
 # Touchpanel
