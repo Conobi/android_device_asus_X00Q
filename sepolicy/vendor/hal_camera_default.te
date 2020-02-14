@@ -4,3 +4,4 @@ set_prop(hal_camera_default, vendor_camera_prop)
 allow hal_camera_default camera_data_file:dir w_dir_perms;
 allow hal_camera_default camera_data_file:file create_file_perms;
 allow hal_camera_default vendor_camera_file:file lock;
+allow hal_camera_default proc_camera:file r_file_perms;
