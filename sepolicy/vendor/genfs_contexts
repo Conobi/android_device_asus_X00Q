@@ -10,6 +10,11 @@ genfscon proc /driver/ois_status                                        u:object
 
 genfscon debugfs /wlan0/power_stats    u:object_r:debugfs_power_stats:s0
 
+# sensors
+genfscon sysfs /devices/virtual/sensors                                 u:object_r:sysfs_sensors:s0
+genfscon sysfs /sys/class/sensors/lsensor/switch	                u:object_r:sysfs_sensors:s0
+genfscon sysfs /sys/class/sensors/psensor/switch			u:object_r:sysfs_sensors:s0
+
 # Touchpanel
 genfscon sysfs /kernel/touchpanel      u:object_r:sysfs_touchpanel:s0
 
